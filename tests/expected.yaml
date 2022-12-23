@@ -1,0 +1,1791 @@
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: test-qwc-qwc-admin
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-admin-gui
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-admin-gui
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: test-qwc-qwc-auth-
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-auth-service
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-auth-service
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: test-qwc-qwc-confi
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-config-service
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-config-service
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: test-qwc-qwc-data-
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-data-service
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-data-service
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: test-qwc-qwc-docum
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-document-service
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-document-service
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: test-qwc-qwc-eleva
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-elevation-service
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-elevation-service
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: test-qwc-qwc-featu
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-feature-info-service
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-feature-info-service
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: test-qwc-qwc-fullt
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-fulltext-search-service
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-fulltext-search-service
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: test-qwc-qwc-map-v
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-map-viewer
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-map-viewer
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: test-qwc-qwc-mapin
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-mapinfo-service
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-mapinfo-service
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: test-qwc-qwc-ogc-s
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-ogc-service
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-ogc-service
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: test-qwc-qwc-perma
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-permalink-service
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-permalink-service
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: test-qwc-qwc-qgis-
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-qgis-server
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-qgis-server
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: test-qwc-qwc-solr
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-solr
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-solr
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-qwc-qwc-admin
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-admin-gui
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-admin-gui
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-qwc-qwc-auth-
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-auth-service
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-auth-service
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-qwc-qwc-confi
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-config-service
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-config-service
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-qwc-qwc-data-
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-data-service
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-data-service
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-qwc-qwc-docum
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-document-service
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-document-service
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-qwc-qwc-eleva
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-elevation-service
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-elevation-service
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-qwc-qwc-featu
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-feature-info-service
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-feature-info-service
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-qwc-qwc-fullt
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-fulltext-search-service
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-fulltext-search-service
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-qwc-qwc-map-v
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-map-viewer
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-map-viewer
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-qwc-qwc-mapin
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-mapinfo-service
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-mapinfo-service
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-qwc-qwc-ogc-s
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-ogc-service
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-ogc-service
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-qwc-qwc-perma
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-permalink-service
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-permalink-service
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-qwc-qwc-qgis-
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-qgis-server
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-qgis-server
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-qwc-qwc-solr
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-solr
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-solr
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-qwc-qwc-admin
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-admin-gui
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-admin-gui
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: qwc-admin-gui
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "sourcepole/qwc-admin-gui:v2022.03.19"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "DEFAULT_LOCALE"
+              value: "en"
+            - name: "GROUP_REGISTRATION_ENABLED"
+              value: "False"
+            - name: "IDLE_TIMEOUT"
+              value: "600"
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "True"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+            - name: "MAIL_DEFAULT_SENDER"
+              value: "from@example.com"
+            - name: "MAIL_SUPPRESS_SEND"
+              value: "True"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              subPath: config
+            - mountPath: pg-service-conf-secret
+              mountPath: /srv/pg_service.conf
+              readOnly: true
+              subPath: pg_service.conf
+
+          ports:
+            - name: uwsgi
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+        - name: v-qwc-data
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-qwc-qwc-auth-
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-auth-service
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-auth-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: qwc-auth-service
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "sourcepole/qwc-db-auth:v2022.03.20"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "True"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+            - name: "MAIL_DEFAULT_SENDER"
+              value: "from@example.com"
+            - name: "MAIL_SUPPRESS_SEND"
+              value: "True"
+            - name: "SERVICE_MOUNTPOINT"
+              value: "/auth"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              readOnly: true
+              subPath: config
+            - mountPath: pg-service-conf-secret
+              mountPath: /srv/pg_service.conf
+              readOnly: true
+              subPath: pg_service.conf
+
+          ports:
+            - name: uwsgi
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+        - name: v-qwc-data
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+            readOnly: true
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-qwc-qwc-confi
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-config-service
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-config-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: qwc-config-service
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "sourcepole/qwc-config-generator:v2022.03.21-noqgis"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "INPUT_CONFIG_PATH"
+              value: "/srv/qwc_service/config-in"
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "True"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+            - name: "OUTPUT_CONFIG_PATH"
+              value: "/srv/qwc_service/config-out"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /data
+              name: v-qwc-data
+              subPath: qgs-resources
+            - mountPath: /qwc2
+              name: v-qwc-data
+              subPath: qwc2
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              readOnly: true
+              subPath: config
+            - mountPath: /srv/qwc_service/config-in
+              name: v-qwc-data
+              readOnly: true
+              subPath: config-in
+            - mountPath: /srv/qwc_service/config-out
+              name: v-qwc-data
+              subPath: config
+            - mountPath: pg-service-conf-secret
+              mountPath: /srv/pg_service.conf
+              readOnly: true
+              subPath: pg_service.conf
+
+          ports:
+            - name: uwsgi
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+        - name: v-qwc-data
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-qwc-qwc-data-
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-data-service
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-data-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: qwc-data-service
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "sourcepole/qwc-data-service:v2022.03.16"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "True"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+            - name: "SERVICE_MOUNTPOINT"
+              value: "/api/v1/data"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /attachments
+              name: v-qwc-data
+              readOnly: true
+              subPath: attachments
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              readOnly: true
+              subPath: config
+            - mountPath: pg-service-conf-secret
+              mountPath: /srv/pg_service.conf
+              readOnly: true
+              subPath: pg_service.conf
+
+          ports:
+            - name: uwsgi
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+        - name: v-qwc-data
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+            readOnly: true
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-qwc-qwc-docum
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-document-service
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-document-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: qwc-document-service
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "sourcepole/qwc-document-service:v2022.01.27"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "True"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+            - name: "SERVICE_MOUNTPOINT"
+              value: "/api/v1/document"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              readOnly: true
+              subPath: config
+            - mountPath: pg-service-conf-secret
+              mountPath: /srv/pg_service.conf
+              readOnly: true
+              subPath: pg_service.conf
+
+          ports:
+            - name: uwsgi
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+        - name: v-qwc-data
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+            readOnly: true
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-qwc-qwc-eleva
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-elevation-service
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-elevation-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: qwc-elevation-service
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "sourcepole/qwc-elevation-service:v2022.01.27"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "True"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              readOnly: true
+              subPath: config
+            - mountPath: pg-service-conf-secret
+              mountPath: /srv/pg_service.conf
+              readOnly: true
+              subPath: pg_service.conf
+
+          ports:
+            - name: uwsgi
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+        - name: v-qwc-data
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+            readOnly: true
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-qwc-qwc-featu
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-feature-info-service
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-feature-info-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: qwc-feature-info-service
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "sourcepole/qwc-feature-info-service:v2.0.10"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "True"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+            - name: "SERVICE_MOUNTPOINT"
+              value: "/api/v1/feature-info"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              readOnly: true
+              subPath: config
+            - mountPath: pg-service-conf-secret
+              mountPath: /srv/pg_service.conf
+              readOnly: true
+              subPath: pg_service.conf
+
+          ports:
+            - name: uwsgi
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+        - name: v-qwc-data
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+            readOnly: true
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-qwc-qwc-fullt
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-fulltext-search-service
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-fulltext-search-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: qwc-fulltext-search-service
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "sourcepole/qwc-fulltext-search-service:v2022.01.27"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "True"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+            - name: "SERVICE_MOUNTPOINT"
+              value: "/api/v2/search"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              readOnly: true
+              subPath: config
+            - mountPath: pg-service-conf-secret
+              mountPath: /srv/pg_service.conf
+              readOnly: true
+              subPath: pg_service.conf
+
+          ports:
+            - name: uwsgi
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+        - name: v-qwc-data
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+            readOnly: true
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-qwc-qwc-map-v
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-map-viewer
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-map-viewer
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: qwc-map-viewer
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "sourcepole/qwc-map-viewer-demo:v2022.02.28"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "True"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              readOnly: true
+              subPath: config
+            - mountPath: pg-service-conf-secret
+              mountPath: /srv/pg_service.conf
+              readOnly: true
+              subPath: pg_service.conf
+
+          ports:
+            - name: uwsgi
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+        - name: v-qwc-data
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+            readOnly: true
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-qwc-qwc-mapin
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-mapinfo-service
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-mapinfo-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: qwc-mapinfo-service
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "sourcepole/qwc-mapinfo-service:v2022.01.27"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "True"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+            - name: "SERVICE_MOUNTPOINT"
+              value: "/api/v1/mapinfo"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              readOnly: true
+              subPath: config
+            - mountPath: pg-service-conf-secret
+              mountPath: /srv/pg_service.conf
+              readOnly: true
+              subPath: pg_service.conf
+
+          ports:
+            - name: uwsgi
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+        - name: v-qwc-data
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+            readOnly: true
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-qwc-qwc-ogc-s
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-ogc-service
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-ogc-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: qwc-ogc-service
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "sourcepole/qwc-ogc-service:v2022.01.27"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "True"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+            - name: "SERVICE_MOUNTPOINT"
+              value: "/ows"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              readOnly: true
+              subPath: config
+            - mountPath: pg-service-conf-secret
+              mountPath: /srv/pg_service.conf
+              readOnly: true
+              subPath: pg_service.conf
+
+          ports:
+            - name: uwsgi
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+        - name: v-qwc-data
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+            readOnly: true
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-qwc-qwc-perma
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-permalink-service
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-permalink-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: qwc-permalink-service
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "sourcepole/qwc-permalink-service:v2022.01.27"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "True"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+            - name: "SERVICE_MOUNTPOINT"
+              value: "/api/v1/permalink"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              readOnly: true
+              subPath: config
+            - mountPath: pg-service-conf-secret
+              mountPath: /srv/pg_service.conf
+              readOnly: true
+              subPath: pg_service.conf
+
+          ports:
+            - name: uwsgi
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+        - name: v-qwc-data
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+            readOnly: true
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-qwc-qwc-qgis-
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-qgis-server
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-qgis-server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: qwc-qgis-server
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "sourcepole/qwc-qgis-server:3.22-plugins"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "True"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              readOnly: true
+              subPath: config
+            - mountPath: pg-service-conf-secret
+              mountPath: /srv/pg_service.conf
+              readOnly: true
+              subPath: pg_service.conf
+
+          ports:
+            - name: uwsgi
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+        - name: v-qwc-data
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+            readOnly: true
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-qwc-qwc-solr
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: qwc-solr
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: qwc-solr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/component: qwc-solr
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "solr:8.11.1-slim"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "True"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              readOnly: true
+              subPath: config
+            - mountPath: pg-service-conf-secret
+              mountPath: /srv/pg_service.conf
+              readOnly: true
+              subPath: pg_service.conf
+
+          ports:
+            - name: uwsgi
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: /gdi_conf
+          name: v-qwc-data
+          readOnly: true
+          subPath: solr/configsets/gdi_conf
+        - name: /var/solr/data
+          name: v-qwc-data
+          subPath: solr/data
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+        - name: v-qwc-data
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+            readOnly: true

@@ -1,0 +1,478 @@
+x-qwc-service-variables: &qwc-service-variables
+  JWT_SECRET_KEY: $JWT_SECRET_KEY
+  JWT_COOKIE_CSRF_PROTECT: 'True'
+  # Set these to override the UID/GID which runs uwsgi. Useful to ensure uwsgi runs under the same user/group
+  # which owns the shared volumes on host, avoiding the need to change the ownership/permissions of those files/folders.
+  SERVICE_UID: 1000
+  SERVICE_GID: 1000
+
+tolerations: []
+podSecurityContext: {}
+securityContext: {}
+
+service: &common-service-definition
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+
+volumes: &common-volumes
+  pg-service-conf-secret:
+    secret:
+      secretName: pg-service-conf-secret
+      items:
+        - key: pg_service_conf
+          path: pg_service.conf
+  v-qwc-data:
+    persistentVolumeClaim:
+      claimName: pvc-qwc-data
+      readOnly: true
+
+volumeMounts: &common-volume-mounts
+  /srv/pg_service.conf:
+    name: pg-service-conf-secret
+    subPath: pg_service.conf
+    readOnly: true
+  /srv/qwc_service/config:
+    name: v-qwc-data
+    subPath: config
+    readOnly: true
+  pg-service-conf-secret:
+    mountPath: /srv/pg_service.conf
+    subPath: pg_service.conf
+    readOnly: true
+
+ports: &common-ports
+  uwsgi:
+    containerPort: 9090
+    hostIP: 127.0.0.1
+
+env: &common-env
+  JWT_COOKIE_CSRF_PROTECT:
+    value: 'True'
+  JWT_SECRET_KEY:
+    type: secret
+    name: jwt-key-secret
+    key: JWT_SECRET_KEY
+
+# Common generic stuff needed
+# from helm-custom-pod dependency
+common-generic-stuff: &common-generic-stuff
+  env: {}
+  replicaCount: 1
+  initContainers: {}
+  nodeSelector: {}
+  affinity: {}
+
+# TODO: do something for this configmap
+qwc-services-config:
+  # replace UNSECURE_KEY with:
+  # `python3 -c 'import secrets; print( secrets.token_hex(48) )'`
+  jwt-key-secret: UNSECURE_KEY
+  pg-service-conf: |-
+    [qwc_configdb]
+    host=qwc-postgis
+    port=5432
+    dbname=qwc_demo
+    user=qwc_admin
+    password=qwc_admin
+    sslmode=disable
+
+    [qwc_geodb]
+    host=qwc-postgis
+    port=5432
+    dbname=qwc_demo
+    user=qwc_service
+    password=qwc_service
+    sslmode=disable
+
+    [qwc_geodb]
+    host=qwc-postgis
+    port=5432
+    dbname=qwc_demo
+    user=qwc_service_write
+    password=qwc_service_write
+    sslmode=disable
+
+# TODO: add ingress
+ingress:
+  enabled: false
+  annotations:
+    {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths: []
+
+  tls: {}
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+qwc:
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: false
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: default
+  services:
+    qwc-admin-gui:
+      enabled: true
+      <<: *common-generic-stuff
+      replicaCount: 2
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+        v-qwc-data:
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+      containers:
+        uwsgi:
+          image:
+            repository: sourcepole/qwc-admin-gui
+            tag: v2022.03.19
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+            /srv/qwc_service/config:
+              name: v-qwc-data
+              subPath: config
+          env:
+            <<: *common-env
+            MAIL_DEFAULT_SENDER:
+              value: 'from@example.com'
+            MAIL_SUPPRESS_SEND:
+              value: 'True'
+            IDLE_TIMEOUT:
+              value: 600
+            GROUP_REGISTRATION_ENABLED:
+              value: 'False'
+            DEFAULT_LOCALE:
+              value: en
+    qwc-auth-service:
+      enabled: true
+      <<: *common-generic-stuff
+      replicaCount: 2
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+      containers:
+        uwsgi:
+          image:
+            repository: sourcepole/qwc-db-auth
+            tag: v2022.03.20
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+          env:
+            <<: *common-env
+            MAIL_DEFAULT_SENDER:
+              value: from@example.com
+            MAIL_SUPPRESS_SEND:
+              value: 'True'
+            SERVICE_MOUNTPOINT:
+              value: /auth
+    qwc-config-service:
+      enabled: true
+      <<: *common-generic-stuff
+      replicaCount: 2
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+        # mount v-qwc-data in RW
+        v-qwc-data:
+          persistentVolumeClaim:
+            claimName: pvc-qwc-data
+      containers:
+        uwsgi:
+          image:
+            repository: sourcepole/qwc-config-generator
+            tag: v2022.03.21-noqgis
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+            /srv/qwc_service/config-in:
+              name: v-qwc-data
+              subPath: config-in
+              readOnly: true
+            /srv/qwc_service/config-out:
+              name: v-qwc-data
+              subPath: config
+            /qwc2:
+              name: v-qwc-data
+              subPath: qwc2
+            /data:
+              name: v-qwc-data
+              subPath: qgs-resources
+          env:
+            <<: *common-env
+            INPUT_CONFIG_PATH:
+              value: /srv/qwc_service/config-in
+            OUTPUT_CONFIG_PATH:
+              value: /srv/qwc_service/config-out
+    qwc-data-service:
+      enabled: true
+      <<: *common-generic-stuff
+      replicaCount: 2
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+      containers:
+        uwsgi:
+          image:
+            repository: sourcepole/qwc-data-service
+            tag: v2022.03.16
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+            /attachments:
+              name: v-qwc-data
+              subPath: attachments
+              readOnly: true
+          env:
+            <<: *common-env
+            SERVICE_MOUNTPOINT:
+              value: /api/v1/data
+    qwc-document-service:
+      enabled: true
+      <<: *common-generic-stuff
+      replicaCount: 2
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+      containers:
+        uwsgi:
+          image:
+            repository: sourcepole/qwc-document-service
+            tag: v2022.01.27
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+          env:
+            <<: *common-env
+            SERVICE_MOUNTPOINT:
+              value: /api/v1/document
+    qwc-elevation-service:
+      enabled: true
+      <<: *common-generic-stuff
+      replicaCount: 2
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+      containers:
+        uwsgi:
+          image:
+            repository: sourcepole/qwc-elevation-service
+            tag: v2022.01.27
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+          env:
+            <<: *common-env
+    qwc-feature-info-service:
+      enabled: true
+      <<: *common-generic-stuff
+      replicaCount: 2
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+      containers:
+        uwsgi:
+          image:
+            repository: sourcepole/qwc-feature-info-service
+            tag: v2.0.10
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+          env:
+            <<: *common-env
+            SERVICE_MOUNTPOINT:
+              value: /api/v1/feature-info
+    qwc-fulltext-search-service:
+      enabled: true
+      <<: *common-generic-stuff
+      replicaCount: 2
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+      containers:
+        uwsgi:
+          image:
+            repository: sourcepole/qwc-fulltext-search-service
+            tag: v2022.01.27
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+          env:
+            <<: *common-env
+            SERVICE_MOUNTPOINT:
+              value: /api/v2/search
+    qwc-mapinfo-service:
+      enabled: true
+      <<: *common-generic-stuff
+      replicaCount: 2
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+      containers:
+        uwsgi:
+          image:
+            repository: sourcepole/qwc-mapinfo-service
+            tag: v2022.01.27
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+          env:
+            <<: *common-env
+            SERVICE_MOUNTPOINT:
+              value: /api/v1/mapinfo
+    qwc-map-viewer:
+      enabled: true
+      <<: *common-generic-stuff
+      replicaCount: 2
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+      containers:
+        uwsgi:
+          image:
+            repository: sourcepole/qwc-map-viewer-demo
+            tag: v2022.02.28
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+          env:
+            <<: *common-env
+    qwc-ogc-service:
+      enabled: true
+      <<: *common-generic-stuff
+      replicaCount: 2
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+      containers:
+        uwsgi:
+          image:
+            repository: sourcepole/qwc-ogc-service
+            tag: v2022.01.27
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+          env:
+            <<: *common-env
+            SERVICE_MOUNTPOINT:
+              value: /ows
+    qwc-permalink-service:
+      enabled: true
+      <<: *common-generic-stuff
+      replicaCount: 2
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+      containers:
+        uwsgi:
+          image:
+            repository: sourcepole/qwc-permalink-service
+            tag: v2022.01.27
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+          env:
+            <<: *common-env
+            SERVICE_MOUNTPOINT:
+              value: /api/v1/permalink
+    qwc-solr:
+      enabled: true
+      <<: *common-generic-stuff
+      replicaCount: 2
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+        # Configuration is copied once from /gdi_conf/ to /var/solr/data/
+        # Change ownership to solr user with `sudo chown 8983:8983 volumes/solr/data`
+        /gdi_conf:
+          name: v-qwc-data
+          subPath: solr/configsets/gdi_conf
+          readOnly: true
+          # TODO:
+          #
+          # Protect admin GUI and admin API with Basic auth
+          # Change "#credentials" to "credentials" in security.json for adding a user 'solr' with password 'SolrRocks'
+          #- ./volumes/solr/security.json:/var/solr/data/security.json:ro
+        /var/solr/data:
+          name: v-qwc-data
+          subPath: solr/data
+      containers:
+        uwsgi:
+          image:
+            repository: solr
+            tag: 8.11.1-slim
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+          env:
+            <<: *common-env
+    # TODO: what about qgis server?
+    qwc-qgis-server:
+      enabled: true
+      <<: *common-generic-stuff
+      replicaCount: 2
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+      containers:
+        uwsgi:
+          image:
+            repository: sourcepole/qwc-qgis-server
+            tag: 3.22-plugins
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+          env:
+            <<: *common-env
