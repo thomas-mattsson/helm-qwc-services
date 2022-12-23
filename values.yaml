@@ -39,10 +39,6 @@ volumeMounts: &common-volume-mounts
     name: v-qwc-data
     subPath: config
     readOnly: true
-  pg-service-conf-secret:
-    mountPath: /srv/pg_service.conf
-    subPath: pg_service.conf
-    readOnly: true
 
 ports: &common-ports
   uwsgi:
@@ -67,34 +63,37 @@ common-generic-stuff: &common-generic-stuff
   affinity: {}
 
 # TODO: do something for this configmap
-qwc-services-config:
+config:
   # replace UNSECURE_KEY with:
   # `python3 -c 'import secrets; print( secrets.token_hex(48) )'`
-  jwt-key-secret: UNSECURE_KEY
-  pg-service-conf: |-
-    [qwc_configdb]
-    host=qwc-postgis
-    port=5432
-    dbname=qwc_demo
-    user=qwc_admin
-    password=qwc_admin
-    sslmode=disable
+  jwt:
+    create: true
+  pg:
+    create: true
+    conf: |-
+      [qwc_configdb]
+      host=qwc-postgis
+      port=5432
+      dbname=qwc_demo
+      user=qwc_admin
+      password=qwc_admin
+      sslmode=disable
 
-    [qwc_geodb]
-    host=qwc-postgis
-    port=5432
-    dbname=qwc_demo
-    user=qwc_service
-    password=qwc_service
-    sslmode=disable
+      [qwc_geodb]
+      host=qwc-postgis
+      port=5432
+      dbname=qwc_demo
+      user=qwc_service
+      password=qwc_service
+      sslmode=disable
 
-    [qwc_geodb]
-    host=qwc-postgis
-    port=5432
-    dbname=qwc_demo
-    user=qwc_service_write
-    password=qwc_service_write
-    sslmode=disable
+      [qwc_geodb]
+      host=qwc-postgis
+      port=5432
+      dbname=qwc_demo
+      user=qwc_service_write
+      password=qwc_service_write
+      sslmode=disable
 
 # TODO: add ingress
 ingress:
@@ -123,7 +122,6 @@ qwc:
     qwc-admin-gui:
       enabled: true
       <<: *common-generic-stuff
-      replicaCount: 2
       service:
         <<: *common-service-definition
       volumes:
@@ -141,9 +139,6 @@ qwc:
             <<: *common-ports
           volumeMounts:
             <<: *common-volume-mounts
-            /srv/qwc_service/config:
-              name: v-qwc-data
-              subPath: config
           env:
             <<: *common-env
             MAIL_DEFAULT_SENDER:
@@ -159,7 +154,6 @@ qwc:
     qwc-auth-service:
       enabled: true
       <<: *common-generic-stuff
-      replicaCount: 2
       service:
         <<: *common-service-definition
       volumes:
@@ -185,7 +179,6 @@ qwc:
     qwc-config-service:
       enabled: true
       <<: *common-generic-stuff
-      replicaCount: 2
       service:
         <<: *common-service-definition
       volumes:
@@ -226,7 +219,6 @@ qwc:
     qwc-data-service:
       enabled: true
       <<: *common-generic-stuff
-      replicaCount: 2
       service:
         <<: *common-service-definition
       volumes:
@@ -252,7 +244,6 @@ qwc:
     qwc-document-service:
       enabled: true
       <<: *common-generic-stuff
-      replicaCount: 2
       service:
         <<: *common-service-definition
       volumes:
@@ -274,7 +265,6 @@ qwc:
     qwc-elevation-service:
       enabled: true
       <<: *common-generic-stuff
-      replicaCount: 2
       service:
         <<: *common-service-definition
       volumes:
@@ -294,7 +284,6 @@ qwc:
     qwc-feature-info-service:
       enabled: true
       <<: *common-generic-stuff
-      replicaCount: 2
       service:
         <<: *common-service-definition
       volumes:
@@ -316,7 +305,6 @@ qwc:
     qwc-fulltext-search-service:
       enabled: true
       <<: *common-generic-stuff
-      replicaCount: 2
       service:
         <<: *common-service-definition
       volumes:
@@ -338,7 +326,6 @@ qwc:
     qwc-mapinfo-service:
       enabled: true
       <<: *common-generic-stuff
-      replicaCount: 2
       service:
         <<: *common-service-definition
       volumes:
@@ -360,7 +347,6 @@ qwc:
     qwc-map-viewer:
       enabled: true
       <<: *common-generic-stuff
-      replicaCount: 2
       service:
         <<: *common-service-definition
       volumes:
@@ -380,7 +366,6 @@ qwc:
     qwc-ogc-service:
       enabled: true
       <<: *common-generic-stuff
-      replicaCount: 2
       service:
         <<: *common-service-definition
       volumes:
@@ -402,7 +387,6 @@ qwc:
     qwc-permalink-service:
       enabled: true
       <<: *common-generic-stuff
-      replicaCount: 2
       service:
         <<: *common-service-definition
       volumes:
@@ -424,25 +408,10 @@ qwc:
     qwc-solr:
       enabled: true
       <<: *common-generic-stuff
-      replicaCount: 2
       service:
         <<: *common-service-definition
       volumes:
         <<: *common-volumes
-        # Configuration is copied once from /gdi_conf/ to /var/solr/data/
-        # Change ownership to solr user with `sudo chown 8983:8983 volumes/solr/data`
-        /gdi_conf:
-          name: v-qwc-data
-          subPath: solr/configsets/gdi_conf
-          readOnly: true
-          # TODO:
-          #
-          # Protect admin GUI and admin API with Basic auth
-          # Change "#credentials" to "credentials" in security.json for adding a user 'solr' with password 'SolrRocks'
-          #- ./volumes/solr/security.json:/var/solr/data/security.json:ro
-        /var/solr/data:
-          name: v-qwc-data
-          subPath: solr/data
       containers:
         uwsgi:
           image:
@@ -453,13 +422,26 @@ qwc:
             <<: *common-ports
           volumeMounts:
             <<: *common-volume-mounts
+            # Configuration is copied once from /gdi_conf/ to /var/solr/data/
+            # Change ownership to solr user with `sudo chown 8983:8983 volumes/solr/data`
+            /gdi_conf:
+              name: v-qwc-data
+              subPath: solr/configsets/gdi_conf
+              readOnly: true
+              # TODO:
+              #
+              # Protect admin GUI and admin API with Basic auth
+              # Change "#credentials" to "credentials" in security.json for adding a user 'solr' with password 'SolrRocks'
+              #- ./volumes/solr/security.json:/var/solr/data/security.json:ro
+            /var/solr/data:
+              name: v-qwc-data
+              subPath: solr/data
           env:
             <<: *common-env
     # TODO: what about qgis server?
     qwc-qgis-server:
       enabled: true
       <<: *common-generic-stuff
-      replicaCount: 2
       service:
         <<: *common-service-definition
       volumes:

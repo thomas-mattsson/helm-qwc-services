@@ -20,7 +20,7 @@ spec:
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: test-qwc-qwc-auth-
+  name: test-qwc-qwc-auth
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: test
@@ -54,7 +54,7 @@ spec:
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: test-qwc-qwc-data-
+  name: test-qwc-qwc-data
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: test
@@ -207,7 +207,7 @@ spec:
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: test-qwc-qwc-qgis-
+  name: test-qwc-qwc-qgis
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: test
@@ -236,6 +236,30 @@ spec:
       app.kubernetes.io/name: qwc
       app.kubernetes.io/instance: test
       app.kubernetes.io/component: qwc-solr
+---
+# Source: qwc/templates/jwt-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: "jwt-key-secret"
+  annotations:
+    "helm.sh/resource-policy": "keep"
+type: Opaque
+data:
+  # retrieve the secret data using lookup function and when not exists, return an empty dictionary / map as result
+  # set $jwtSecret to existing secret data or generate a random one when not exists
+  # generate 32 chars long random string, base64 encode it and then double-quote the result string.
+  JWT_SECRET_KEY: "YzFaRGFEVkpkMDlNY1ZaQ1JXdERVRkZYUkRSbGNHODVWSEJ1VkdwT2FUST0="
+---
+# Source: qwc/templates/pg-conf-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pg-service-conf-secret
+  namespace: default
+type: Opaque
+data:
+  pg_service_conf: fC0KICBbcXdjX2NvbmZpZ2RiXQogIGhvc3Q9cXdjLXBvc3RnaXMKICBwb3J0PTU0MzIKICBkYm5hbWU9cXdjX2RlbW8KICB1c2VyPXF3Y19hZG1pbgogIHBhc3N3b3JkPXF3Y19hZG1pbgogIHNzbG1vZGU9ZGlzYWJsZQoKICBbcXdjX2dlb2RiXQogIGhvc3Q9cXdjLXBvc3RnaXMKICBwb3J0PTU0MzIKICBkYm5hbWU9cXdjX2RlbW8KICB1c2VyPXF3Y19zZXJ2aWNlCiAgcGFzc3dvcmQ9cXdjX3NlcnZpY2UKICBzc2xtb2RlPWRpc2FibGUKCiAgW3F3Y19nZW9kYl0KICBob3N0PXF3Yy1wb3N0Z2lzCiAgcG9ydD01NDMyCiAgZGJuYW1lPXF3Y19kZW1vCiAgdXNlcj1xd2Nfc2VydmljZV93cml0ZQogIHBhc3N3b3JkPXF3Y19zZXJ2aWNlX3dyaXRlCiAgc3NsbW9kZT1kaXNhYmxl
 ---
 # Source: qwc/charts/qwc/templates/service.yaml
 apiVersion: v1
@@ -266,7 +290,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: test-qwc-qwc-auth-
+  name: test-qwc-qwc-auth
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -316,7 +340,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: test-qwc-qwc-data-
+  name: test-qwc-qwc-data
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -541,7 +565,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: test-qwc-qwc-qgis-
+  name: test-qwc-qwc-qgis
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -655,11 +679,8 @@ spec:
               subPath: pg_service.conf
             - mountPath: /srv/qwc_service/config
               name: v-qwc-data
-              subPath: config
-            - mountPath: pg-service-conf-secret
-              mountPath: /srv/pg_service.conf
               readOnly: true
-              subPath: pg_service.conf
+              subPath: config
 
           ports:
             - name: uwsgi
@@ -681,7 +702,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test-qwc-qwc-auth-
+  name: test-qwc-qwc-auth
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -743,10 +764,6 @@ spec:
               name: v-qwc-data
               readOnly: true
               subPath: config
-            - mountPath: pg-service-conf-secret
-              mountPath: /srv/pg_service.conf
-              readOnly: true
-              subPath: pg_service.conf
 
           ports:
             - name: uwsgi
@@ -842,10 +859,6 @@ spec:
             - mountPath: /srv/qwc_service/config-out
               name: v-qwc-data
               subPath: config
-            - mountPath: pg-service-conf-secret
-              mountPath: /srv/pg_service.conf
-              readOnly: true
-              subPath: pg_service.conf
 
           ports:
             - name: uwsgi
@@ -867,7 +880,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test-qwc-qwc-data-
+  name: test-qwc-qwc-data
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -929,10 +942,6 @@ spec:
               name: v-qwc-data
               readOnly: true
               subPath: config
-            - mountPath: pg-service-conf-secret
-              mountPath: /srv/pg_service.conf
-              readOnly: true
-              subPath: pg_service.conf
 
           ports:
             - name: uwsgi
@@ -1013,10 +1022,6 @@ spec:
               name: v-qwc-data
               readOnly: true
               subPath: config
-            - mountPath: pg-service-conf-secret
-              mountPath: /srv/pg_service.conf
-              readOnly: true
-              subPath: pg_service.conf
 
           ports:
             - name: uwsgi
@@ -1095,10 +1100,6 @@ spec:
               name: v-qwc-data
               readOnly: true
               subPath: config
-            - mountPath: pg-service-conf-secret
-              mountPath: /srv/pg_service.conf
-              readOnly: true
-              subPath: pg_service.conf
 
           ports:
             - name: uwsgi
@@ -1179,10 +1180,6 @@ spec:
               name: v-qwc-data
               readOnly: true
               subPath: config
-            - mountPath: pg-service-conf-secret
-              mountPath: /srv/pg_service.conf
-              readOnly: true
-              subPath: pg_service.conf
 
           ports:
             - name: uwsgi
@@ -1263,10 +1260,6 @@ spec:
               name: v-qwc-data
               readOnly: true
               subPath: config
-            - mountPath: pg-service-conf-secret
-              mountPath: /srv/pg_service.conf
-              readOnly: true
-              subPath: pg_service.conf
 
           ports:
             - name: uwsgi
@@ -1345,10 +1338,6 @@ spec:
               name: v-qwc-data
               readOnly: true
               subPath: config
-            - mountPath: pg-service-conf-secret
-              mountPath: /srv/pg_service.conf
-              readOnly: true
-              subPath: pg_service.conf
 
           ports:
             - name: uwsgi
@@ -1429,10 +1418,6 @@ spec:
               name: v-qwc-data
               readOnly: true
               subPath: config
-            - mountPath: pg-service-conf-secret
-              mountPath: /srv/pg_service.conf
-              readOnly: true
-              subPath: pg_service.conf
 
           ports:
             - name: uwsgi
@@ -1513,10 +1498,6 @@ spec:
               name: v-qwc-data
               readOnly: true
               subPath: config
-            - mountPath: pg-service-conf-secret
-              mountPath: /srv/pg_service.conf
-              readOnly: true
-              subPath: pg_service.conf
 
           ports:
             - name: uwsgi
@@ -1597,10 +1578,6 @@ spec:
               name: v-qwc-data
               readOnly: true
               subPath: config
-            - mountPath: pg-service-conf-secret
-              mountPath: /srv/pg_service.conf
-              readOnly: true
-              subPath: pg_service.conf
 
           ports:
             - name: uwsgi
@@ -1623,7 +1600,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test-qwc-qwc-qgis-
+  name: test-qwc-qwc-qgis
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -1679,10 +1656,6 @@ spec:
               name: v-qwc-data
               readOnly: true
               subPath: config
-            - mountPath: pg-service-conf-secret
-              mountPath: /srv/pg_service.conf
-              readOnly: true
-              subPath: pg_service.conf
 
           ports:
             - name: uwsgi
@@ -1753,6 +1726,10 @@ spec:
           resources:
             null
           volumeMounts:
+            - mountPath: /gdi_conf
+              name: v-qwc-data
+              readOnly: true
+              subPath: solr/configsets/gdi_conf
             - mountPath: /srv/pg_service.conf
               name: pg-service-conf-secret
               readOnly: true
@@ -1761,10 +1738,9 @@ spec:
               name: v-qwc-data
               readOnly: true
               subPath: config
-            - mountPath: pg-service-conf-secret
-              mountPath: /srv/pg_service.conf
-              readOnly: true
-              subPath: pg_service.conf
+            - mountPath: /var/solr/data
+              name: v-qwc-data
+              subPath: solr/data
 
           ports:
             - name: uwsgi
@@ -1772,13 +1748,6 @@ spec:
               hostIP: 127.0.0.1
 
       volumes:
-        - name: /gdi_conf
-          name: v-qwc-data
-          readOnly: true
-          subPath: solr/configsets/gdi_conf
-        - name: /var/solr/data
-          name: v-qwc-data
-          subPath: solr/data
         - name: pg-service-conf-secret
           secret:
             items:
