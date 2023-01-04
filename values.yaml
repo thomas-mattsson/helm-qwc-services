@@ -95,23 +95,24 @@ config:
       password=qwc_service_write
       sslmode=disable
 
-# TODO: add ingress
-ingress:
-  enabled: false
-  annotations:
-    {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths: []
-
-  tls: {}
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
 qwc:
+  ingress:
+    enabled: false
+    # hostGroups:
+    #   host1:
+    #     tls:
+    #       enabled: true
+    #       secretName: 'my-tls-secret'
+    #     hosts:
+    #       - test1.example.com
+    #       - test2.example.com
+    #   host2:
+    #     tls:
+    #       enabled: true
+    #       secretName: 'my-wildcard-tls-secret'
+    #     hosts:
+    #       - '*.example.com'
+
   serviceAccount:
     # Specifies whether a service account should be created
     create: false
@@ -119,7 +120,7 @@ qwc:
     # If not set and create is true, a name is generated using the fullname template
     name: default
   services:
-    qwc-admin-gui:
+    admin-gui:
       enabled: true
       <<: *common-generic-stuff
       service:
@@ -151,7 +152,7 @@ qwc:
               value: 'False'
             DEFAULT_LOCALE:
               value: en
-    qwc-auth-service:
+    auth-service:
       enabled: true
       <<: *common-generic-stuff
       service:
@@ -176,7 +177,7 @@ qwc:
               value: 'True'
             SERVICE_MOUNTPOINT:
               value: /auth
-    qwc-config-service:
+    config-service:
       enabled: true
       <<: *common-generic-stuff
       service:
@@ -216,7 +217,7 @@ qwc:
               value: /srv/qwc_service/config-in
             OUTPUT_CONFIG_PATH:
               value: /srv/qwc_service/config-out
-    qwc-data-service:
+    data-service:
       enabled: true
       <<: *common-generic-stuff
       service:
@@ -241,7 +242,7 @@ qwc:
             <<: *common-env
             SERVICE_MOUNTPOINT:
               value: /api/v1/data
-    qwc-document-service:
+    document-service:
       enabled: true
       <<: *common-generic-stuff
       service:
@@ -262,7 +263,7 @@ qwc:
             <<: *common-env
             SERVICE_MOUNTPOINT:
               value: /api/v1/document
-    qwc-elevation-service:
+    elevation-service:
       enabled: true
       <<: *common-generic-stuff
       service:
@@ -281,7 +282,7 @@ qwc:
             <<: *common-volume-mounts
           env:
             <<: *common-env
-    qwc-feature-info-service:
+    feature-info-service:
       enabled: true
       <<: *common-generic-stuff
       service:
@@ -302,7 +303,7 @@ qwc:
             <<: *common-env
             SERVICE_MOUNTPOINT:
               value: /api/v1/feature-info
-    qwc-fulltext-search-service:
+    fulltext-search-service:
       enabled: true
       <<: *common-generic-stuff
       service:
@@ -323,7 +324,7 @@ qwc:
             <<: *common-env
             SERVICE_MOUNTPOINT:
               value: /api/v2/search
-    qwc-mapinfo-service:
+    mapinfo-service:
       enabled: true
       <<: *common-generic-stuff
       service:
@@ -344,7 +345,7 @@ qwc:
             <<: *common-env
             SERVICE_MOUNTPOINT:
               value: /api/v1/mapinfo
-    qwc-map-viewer:
+    map-viewer:
       enabled: true
       <<: *common-generic-stuff
       service:
@@ -363,7 +364,7 @@ qwc:
             <<: *common-volume-mounts
           env:
             <<: *common-env
-    qwc-ogc-service:
+    ogc-service:
       enabled: true
       <<: *common-generic-stuff
       service:
@@ -384,7 +385,7 @@ qwc:
             <<: *common-env
             SERVICE_MOUNTPOINT:
               value: /ows
-    qwc-permalink-service:
+    permalink-service:
       enabled: true
       <<: *common-generic-stuff
       service:
@@ -405,7 +406,7 @@ qwc:
             <<: *common-env
             SERVICE_MOUNTPOINT:
               value: /api/v1/permalink
-    qwc-solr:
+    solr:
       enabled: true
       <<: *common-generic-stuff
       service:
@@ -439,7 +440,7 @@ qwc:
           env:
             <<: *common-env
     # TODO: what about qgis server?
-    qwc-qgis-server:
+    qgis-server:
       enabled: true
       <<: *common-generic-stuff
       service:
