@@ -18,10 +18,10 @@ volumes: &common-volumes
       items:
         - key: pg_service_conf
           path: pg_service.conf
-  v-qwc-data:
-    persistentVolumeClaim:
-      claimName: pvc-qwc-data
-      readOnly: true
+  # v-qwc-data:
+  #   persistentVolumeClaim:
+  #     claimName: pvc-qwc-data
+  #     readOnly: true
 
 volumeMounts: &common-volume-mounts
   /srv/pg_service.conf:
@@ -125,7 +125,6 @@ qgis:
             http:
               containerPort: 80
           volumeMounts:
-            <<: *common-volume-mounts
             /data:
               name: v-qwc-data
               subPath: qgs-resources
