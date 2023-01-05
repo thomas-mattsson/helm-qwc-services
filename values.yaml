@@ -40,7 +40,7 @@ ports: &common-ports
 
 env: &common-env
   JWT_COOKIE_CSRF_PROTECT:
-    value: 'True'
+    value: 'False'
   JWT_SECRET_KEY:
     type: secret
     name: jwt-key-secret
@@ -107,10 +107,10 @@ qgis:
       <<: *common-generic-stuff
       service:
         type: ClusterIP
-        servicePort: 8080
+        servicePort: 80
         ports:
           - name: http
-            port: 8080
+            port: 80
             protocol: TCP
             targetPort: http
       volumes:
@@ -118,14 +118,18 @@ qgis:
       containers:
         qgis:
           image:
-            repository: camptocamp/qgis-server
-            tag: 3.22
+            repository: sourcepole/qwc-qgis-server
+            tag: 3.28.2
             sha: ''
           ports:
             http:
-              containerPort: 8080
+              containerPort: 80
           volumeMounts:
             <<: *common-volume-mounts
+            /data:
+              name: v-qwc-data
+              subPath: qgs-resources
+              readOnly: true
           env:
             <<: *common-env
 
@@ -418,7 +422,7 @@ qwc:
         uwsgi:
           image:
             repository: sourcepole/qwc-map-viewer-demo
-            tag: v2022.02.28
+            tag: v2022.10.06
             sha: ''
           ports:
             <<: *common-ports
@@ -440,7 +444,7 @@ qwc:
         uwsgi:
           image:
             repository: sourcepole/qwc-ogc-service
-            tag: v2022.01.27
+            tag: v2022.08.22
             sha: ''
           ports:
             <<: *common-ports
