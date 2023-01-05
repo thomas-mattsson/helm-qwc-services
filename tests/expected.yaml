@@ -249,7 +249,7 @@ data:
   # retrieve the secret data using lookup function and when not exists, return an empty dictionary / map as result
   # set $jwtSecret to existing secret data or generate a random one when not exists
   # generate 32 chars long random string, base64 encode it and then double-quote the result string.
-  JWT_SECRET_KEY: "YWxaeFZFdHRiakZVU1hBNWRUSkdOVTVQVUZoU01WRllNRnBQYUVwbVJsQT0="
+  JWT_SECRET_KEY: "TkRaTVJGQlBVbVExUmpoMGRtaExiVEZNYTJkNVozbG5OVlZIVEdOUFVrND0="
 ---
 # Source: qwc/templates/pg-conf-secret.yaml
 apiVersion: v1
@@ -278,7 +278,7 @@ spec:
   type: ClusterIP
   ports:
     - name: http
-      port: 8080
+      port: 80
       protocol: TCP
       targetPort: http
   selector:
@@ -649,11 +649,11 @@ spec:
         - name: qgis
           securityContext:
             {}
-          image: "camptocamp/qgis-server:3.22"
+          image: "sourcepole/qwc-qgis-server:3.28.2"
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
-              value: "True"
+              value: "False"
             - name: "JWT_SECRET_KEY"
               valueFrom:
                 secretKeyRef:
@@ -663,6 +663,10 @@ spec:
           resources:
             null
           volumeMounts:
+            - mountPath: /data
+              name: v-qwc-data
+              readOnly: true
+              subPath: qgs-resources
             - mountPath: /srv/pg_service.conf
               name: pg-service-conf-secret
               readOnly: true
@@ -674,7 +678,7 @@ spec:
 
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 80
 
       volumes:
         - name: pg-service-conf-secret
@@ -736,7 +740,7 @@ spec:
             - name: "IDLE_TIMEOUT"
               value: "600"
             - name: "JWT_COOKIE_CSRF_PROTECT"
-              value: "True"
+              value: "False"
             - name: "JWT_SECRET_KEY"
               valueFrom:
                 secretKeyRef:
@@ -817,7 +821,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
-              value: "True"
+              value: "False"
             - name: "JWT_SECRET_KEY"
               valueFrom:
                 secretKeyRef:
@@ -903,7 +907,7 @@ spec:
             - name: "INPUT_CONFIG_PATH"
               value: "/srv/qwc_service/config-in"
             - name: "JWT_COOKIE_CSRF_PROTECT"
-              value: "True"
+              value: "False"
             - name: "JWT_SECRET_KEY"
               valueFrom:
                 secretKeyRef:
@@ -995,7 +999,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
-              value: "True"
+              value: "False"
             - name: "JWT_SECRET_KEY"
               valueFrom:
                 secretKeyRef:
@@ -1079,7 +1083,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
-              value: "True"
+              value: "False"
             - name: "JWT_SECRET_KEY"
               valueFrom:
                 secretKeyRef:
@@ -1159,7 +1163,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
-              value: "True"
+              value: "False"
             - name: "JWT_SECRET_KEY"
               valueFrom:
                 secretKeyRef:
@@ -1237,7 +1241,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
-              value: "True"
+              value: "False"
             - name: "JWT_SECRET_KEY"
               valueFrom:
                 secretKeyRef:
@@ -1317,7 +1321,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
-              value: "True"
+              value: "False"
             - name: "JWT_SECRET_KEY"
               valueFrom:
                 secretKeyRef:
@@ -1393,11 +1397,11 @@ spec:
         - name: uwsgi
           securityContext:
             {}
-          image: "sourcepole/qwc-map-viewer-demo:v2022.02.28"
+          image: "sourcepole/qwc-map-viewer-demo:v2022.10.06"
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
-              value: "True"
+              value: "False"
             - name: "JWT_SECRET_KEY"
               valueFrom:
                 secretKeyRef:
@@ -1475,7 +1479,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
-              value: "True"
+              value: "False"
             - name: "JWT_SECRET_KEY"
               valueFrom:
                 secretKeyRef:
@@ -1551,11 +1555,11 @@ spec:
         - name: uwsgi
           securityContext:
             {}
-          image: "sourcepole/qwc-ogc-service:v2022.01.27"
+          image: "sourcepole/qwc-ogc-service:v2022.08.22"
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
-              value: "True"
+              value: "False"
             - name: "JWT_SECRET_KEY"
               valueFrom:
                 secretKeyRef:
@@ -1635,7 +1639,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
-              value: "True"
+              value: "False"
             - name: "JWT_SECRET_KEY"
               valueFrom:
                 secretKeyRef:
@@ -1715,7 +1719,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
-              value: "True"
+              value: "False"
             - name: "JWT_SECRET_KEY"
               valueFrom:
                 secretKeyRef:
