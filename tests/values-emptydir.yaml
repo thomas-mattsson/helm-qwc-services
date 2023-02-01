@@ -1,0 +1,215 @@
+# Default values for mapserver.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+volumes: &common-volumes
+  v-qwc-data:
+    emptyDir:
+      sizeLimit: 500Mi
+
+volumeMounts: &common-volume-mounts
+  /srv/qwc_service/config:
+    name: v-qwc-data
+
+# you can run as non root like this for example
+idstuff: &idstuff
+  SERVICE_UID:
+    value: 1012
+  SERVICE_GID:
+    value: 1012
+
+initContainers: &initContainers
+  config:
+    command:
+      - '/bin/sh'
+      - '-c'
+      - 'cp -r /qwc/config/ /srv/qwc_service/config/'
+    image:
+      repository: my-repository/qwcconfig
+      tag: image-tag
+    volumeMounts:
+      <<: *common-volume-mounts
+    env:
+      <<: *idstuff
+
+qwcservices:
+  config:
+    pg:
+      conf: |
+        [qwc_configdb]
+        host=10.60.12.122
+        port=5439
+        dbname=qwc_demo
+        user=qwc_admin
+        password=qwc_admin
+        sslmode=disable
+
+        [qwc_geodb]
+        host=10.60.12.122
+        port=5439
+        dbname=qwc_demo
+        user=qwc_service
+        password=qwc_service
+        sslmode=disable
+  qgis:
+    services:
+      qgis-server:
+        volumes:
+          <<: *common-volumes
+
+        initContainers:
+          config:
+            command:
+              - '/bin/sh'
+              - '-c'
+              - 'cp -r /qwc/qgs-resources/ /data'
+            image:
+              repository: my-repository/qwcconfig
+              tag: image-tag
+            volumeMounts: &qgis-mounts
+              /data:
+                name: v-qwc-data
+            env:
+              <<: *idstuff
+        containers:
+          qgis:
+            volumeMounts:
+              <<: *qgis-mounts
+    ingress:
+      enabled: false
+
+  qwc:
+    ingress:
+      enabled: true
+      hostGroups:
+        host1:
+          tls:
+            enabled: false
+            secretName: 'my-tls-secret'
+          hosts:
+            - qwc.local
+    securityContext: &security
+      runAsNonRoot: true
+      runAsUser: 1012
+      runAsGroup: 1012
+    podSecurityContext:
+      <<: *security
+      fsGroup: 1012
+
+    services:
+      admin-gui:
+        enabled: false
+      auth-service:
+        volumes:
+          <<: *common-volumes
+        initContainers:
+          <<: *initContainers
+        containers:
+          uwsgi:
+            volumeMounts:
+              <<: *common-volume-mounts
+            env:
+              <<: *idstuff
+      config-service:
+        enabled: false
+      data-service:
+        initContainers:
+          <<: *initContainers
+        volumes:
+          <<: *common-volumes
+        containers:
+          uwsgi:
+            volumeMounts:
+              <<: *common-volume-mounts
+            env:
+              <<: *idstuff
+      document-service:
+        initContainers:
+          <<: *initContainers
+        volumes:
+          <<: *common-volumes
+        containers:
+          uwsgi:
+            volumeMounts:
+              <<: *common-volume-mounts
+            env:
+              <<: *idstuff
+      elevation-service:
+        initContainers:
+          <<: *initContainers
+        volumes:
+          <<: *common-volumes
+        containers:
+          uwsgi:
+            volumeMounts:
+              <<: *common-volume-mounts
+            env:
+              <<: *idstuff
+      feature-info-service:
+        initContainers:
+          <<: *initContainers
+        volumes:
+          <<: *common-volumes
+        containers:
+          uwsgi:
+            volumeMounts:
+              <<: *common-volume-mounts
+            env:
+              <<: *idstuff
+      fulltext-search-service:
+        initContainers:
+          <<: *initContainers
+        volumes:
+          <<: *common-volumes
+        containers:
+          uwsgi:
+            volumeMounts:
+              <<: *common-volume-mounts
+            env:
+              <<: *idstuff
+      mapinfo-service:
+        initContainers:
+          <<: *initContainers
+        volumes:
+          <<: *common-volumes
+        containers:
+          uwsgi:
+            volumeMounts:
+              <<: *common-volume-mounts
+            env:
+              <<: *idstuff
+      map-viewer:
+        initContainers:
+          <<: *initContainers
+        volumes:
+          <<: *common-volumes
+        containers:
+          uwsgi:
+            volumeMounts:
+              <<: *common-volume-mounts
+            env:
+              <<: *idstuff
+      ogc-service:
+        initContainers:
+          <<: *initContainers
+        volumes:
+          <<: *common-volumes
+        containers:
+          uwsgi:
+            volumeMounts:
+              <<: *common-volume-mounts
+            env:
+              <<: *idstuff
+      permalink-service:
+        initContainers:
+          <<: *initContainers
+        volumes:
+          <<: *common-volumes
+        containers:
+          uwsgi:
+            volumeMounts:
+              <<: *common-volume-mounts
+            env:
+              <<: *idstuff
+      solr:
+        enabled: false

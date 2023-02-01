@@ -18,10 +18,10 @@ volumes: &common-volumes
       items:
         - key: pg_service_conf
           path: pg_service.conf
-  # v-qwc-data:
-  #   persistentVolumeClaim:
-  #     claimName: pvc-qwc-data
-  #     readOnly: true
+  # v-qwc-data must be defined as NFS or emptyDir otherwise you
+  # get "error converting YAML to JSON"...
+  # see the examples
+  #v-qwc-data: {}
 
 volumeMounts: &common-volume-mounts
   /srv/pg_service.conf:
@@ -31,7 +31,6 @@ volumeMounts: &common-volume-mounts
   /srv/qwc_service/config:
     name: v-qwc-data
     subPath: config
-    readOnly: true
 
 ports: &common-ports
   http:
@@ -99,7 +98,6 @@ qgis:
     # If not set and create is true, a name is generated using the fullname template
     name: default
   services:
-    # TODO: what about qgis server?
     qgis-server:
       enabled: true
       ingress:
@@ -107,6 +105,7 @@ qgis:
       <<: *common-generic-stuff
       service:
         type: ClusterIP
+        name: qwc-qgis-server
         servicePort: 80
         ports:
           - name: http

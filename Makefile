@@ -1,8 +1,8 @@
 HELM ?= helm
 
 gen-expected:
-	${HELM} template --namespace=default qwc . > tests/expected.yaml || \
-		${HELM} template --debug --namespace=default qwc .
+	${HELM} template --namespace=default --values=tests/values-emptydir.yaml qwc . > tests/expected.yaml || \
+		${HELM} template --debug --namespace=default --values=tests/values-emptydir.yaml qwc .
 	sed -i 's/[[:blank:]]\+$$//g'  tests/expected.yaml
 
 #start-local:
