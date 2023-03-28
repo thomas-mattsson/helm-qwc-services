@@ -166,9 +166,6 @@ qwc:
         <<: *common-service-definition
       volumes:
         <<: *common-volumes
-        v-qwc-data:
-          persistentVolumeClaim:
-            claimName: pvc-qwc-data
       containers:
         uwsgi:
           image:
@@ -205,7 +202,7 @@ qwc:
         uwsgi:
           image:
             repository: sourcepole/qwc-db-auth
-            tag: v2022.03.20
+            tag: v2023.02.06
             sha: ''
           ports:
             <<: *common-ports
@@ -229,9 +226,6 @@ qwc:
       volumes:
         <<: *common-volumes
         # mount v-qwc-data in RW
-        v-qwc-data:
-          persistentVolumeClaim:
-            claimName: pvc-qwc-data
       containers:
         uwsgi:
           image:
@@ -275,7 +269,7 @@ qwc:
         uwsgi:
           image:
             repository: sourcepole/qwc-data-service
-            tag: v2022.03.16
+            tag: v2023.01.11
             sha: ''
           ports:
             <<: *common-ports
@@ -326,7 +320,7 @@ qwc:
         uwsgi:
           image:
             repository: sourcepole/qwc-elevation-service
-            tag: v2022.01.27
+            tag: v2022.08.22
             sha: ''
           ports:
             <<: *common-ports
@@ -348,7 +342,7 @@ qwc:
         uwsgi:
           image:
             repository: sourcepole/qwc-feature-info-service
-            tag: v2.0.10
+            tag: v2022.11.19
             sha: ''
           ports:
             <<: *common-ports
@@ -357,7 +351,7 @@ qwc:
           env:
             <<: *common-env
             SERVICE_MOUNTPOINT:
-              value: /api/v1/feature-info
+              value: /api/v1/featureinfo
     fulltext-search-service:
       enabled: true
       ingress:
@@ -372,7 +366,7 @@ qwc:
         uwsgi:
           image:
             repository: sourcepole/qwc-fulltext-search-service
-            tag: v2022.01.27
+            tag: v2022.09.27
             sha: ''
           ports:
             <<: *common-ports
@@ -396,7 +390,7 @@ qwc:
         uwsgi:
           image:
             repository: sourcepole/qwc-mapinfo-service
-            tag: v2022.01.27
+            tag: v2022.08.22
             sha: ''
           ports:
             <<: *common-ports
@@ -406,6 +400,58 @@ qwc:
             <<: *common-env
             SERVICE_MOUNTPOINT:
               value: /api/v1/mapinfo
+    legend-service:
+      enabled: true
+      ingress:
+        enabled: true
+        path: /api/v1/legend
+      <<: *common-generic-stuff
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+      containers:
+        uwsgi:
+          image:
+            repository: sourcepole/qwc-legend-service
+            tag: v2022.12.12
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+            /legends:
+              name: v-qwc-data
+              subPath: legends
+              readOnly: true
+          env:
+            <<: *common-env
+            SERVICE_MOUNTPOINT:
+              value: /api/v1/legend
+    print-service:
+      enabled: true
+      ingress:
+        enabled: true
+        path: /api/v1/print
+      <<: *common-generic-stuff
+      service:
+        <<: *common-service-definition
+      volumes:
+        <<: *common-volumes
+      containers:
+        uwsgi:
+          image:
+            repository: sourcepole/qwc-print-service
+            tag: v2022.10.06
+            sha: ''
+          ports:
+            <<: *common-ports
+          volumeMounts:
+            <<: *common-volume-mounts
+          env:
+            <<: *common-env
+            SERVICE_MOUNTPOINT:
+              value: /api/v1/print
     map-viewer:
       enabled: true
       ingress:
@@ -442,7 +488,7 @@ qwc:
         uwsgi:
           image:
             repository: sourcepole/qwc-ogc-service
-            tag: v2022.08.22
+            tag: v2023.02.03
             sha: ''
           ports:
             <<: *common-ports
@@ -466,7 +512,7 @@ qwc:
         uwsgi:
           image:
             repository: sourcepole/qwc-permalink-service
-            tag: v2022.01.27
+            tag: v2022.10.06
             sha: ''
           ports:
             <<: *common-ports
@@ -481,21 +527,26 @@ qwc:
       ingress:
         enabled: false
       <<: *common-generic-stuff
-      service:
-        <<: *common-service-definition
       volumes:
         <<: *common-volumes
-        v-qwc-data:
-          persistentVolumeClaim:
-            claimName: pvc-qwc-data
+      service:
+        type: ClusterIP
+        servicePort: 8983
+        ports:
+          - name: http
+            port: 8983
+            protocol: TCP
+            targetPort: http
       containers:
-        uwsgi:
+        solr:
           image:
             repository: solr
             tag: 8.11.1-slim
             sha: ''
           ports:
-            <<: *common-ports
+            http:
+              containerPort: 8983
+              hostIP: 127.0.0.1
           volumeMounts:
             <<: *common-volume-mounts
             # Configuration is copied once from /gdi_conf/ to /var/solr/data/
