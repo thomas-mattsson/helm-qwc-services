@@ -1,6 +1,6 @@
 ---
 # Source: qwc/charts/qgis/templates/pdb.yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: qwc-qgis-qgis-serv
@@ -17,7 +17,7 @@ spec:
       app.kubernetes.io/component: qgis-server
 ---
 # Source: qwc/charts/qwc/templates/pdb.yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: qwc-admin-gui
@@ -34,7 +34,7 @@ spec:
       app.kubernetes.io/component: admin-gui
 ---
 # Source: qwc/charts/qwc/templates/pdb.yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: qwc-auth-serv
@@ -51,7 +51,7 @@ spec:
       app.kubernetes.io/component: auth-service
 ---
 # Source: qwc/charts/qwc/templates/pdb.yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: qwc-config-se
@@ -68,7 +68,7 @@ spec:
       app.kubernetes.io/component: config-service
 ---
 # Source: qwc/charts/qwc/templates/pdb.yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: qwc-data-serv
@@ -85,7 +85,7 @@ spec:
       app.kubernetes.io/component: data-service
 ---
 # Source: qwc/charts/qwc/templates/pdb.yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: qwc-document
@@ -102,7 +102,7 @@ spec:
       app.kubernetes.io/component: document-service
 ---
 # Source: qwc/charts/qwc/templates/pdb.yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: qwc-elevation
@@ -119,7 +119,7 @@ spec:
       app.kubernetes.io/component: elevation-service
 ---
 # Source: qwc/charts/qwc/templates/pdb.yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: qwc-feature-i
@@ -136,7 +136,7 @@ spec:
       app.kubernetes.io/component: feature-info-service
 ---
 # Source: qwc/charts/qwc/templates/pdb.yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: qwc-fulltext
@@ -153,7 +153,24 @@ spec:
       app.kubernetes.io/component: fulltext-search-service
 ---
 # Source: qwc/charts/qwc/templates/pdb.yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: qwc-legend-se
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: qwc
+    app.kubernetes.io/component: legend-service
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: qwc
+      app.kubernetes.io/component: legend-service
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: qwc-map-viewe
@@ -170,7 +187,7 @@ spec:
       app.kubernetes.io/component: map-viewer
 ---
 # Source: qwc/charts/qwc/templates/pdb.yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: qwc-mapinfo-s
@@ -187,7 +204,7 @@ spec:
       app.kubernetes.io/component: mapinfo-service
 ---
 # Source: qwc/charts/qwc/templates/pdb.yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: qwc-ogc-servi
@@ -204,7 +221,7 @@ spec:
       app.kubernetes.io/component: ogc-service
 ---
 # Source: qwc/charts/qwc/templates/pdb.yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: qwc-permalink
@@ -221,7 +238,24 @@ spec:
       app.kubernetes.io/component: permalink-service
 ---
 # Source: qwc/charts/qwc/templates/pdb.yaml
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: qwc-print-ser
+  labels:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: qwc
+    app.kubernetes.io/component: print-service
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: qwc
+      app.kubernetes.io/component: print-service
+---
+# Source: qwc/charts/qwc/templates/pdb.yaml
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: qwc-solr
@@ -249,7 +283,7 @@ data:
   # retrieve the secret data using lookup function and when not exists, return an empty dictionary / map as result
   # set $jwtSecret to existing secret data or generate a random one when not exists
   # generate 32 chars long random string, base64 encode it and then double-quote the result string.
-  JWT_SECRET_KEY: "Wm5sMmNtMUdObVpOY2pKeWN6Y3lVR0pQTlhGWFNHWlNSMlpWZWtWcGJtRT0="
+  JWT_SECRET_KEY: "ZVdaV2RYSjNiRlZ4UzFSWGFYVkNkV2czUmpsUk5GRkNURmRDVFVoTFVHYz0="
 ---
 # Source: qwc/templates/pg-conf-secret.yaml
 apiVersion: v1
@@ -490,6 +524,31 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: qwc-legend-se
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: qwc
+    app.kubernetes.io/component: legend-service
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: qwc
+    app.kubernetes.io/component: legend-service
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
   name: qwc-map-viewe
   labels:
     helm.sh/chart: qwc
@@ -590,6 +649,31 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: qwc-print-ser
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: qwc
+    app.kubernetes.io/component: print-service
+    prometheus: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: qwc
+    app.kubernetes.io/component: print-service
+---
+# Source: qwc/charts/qwc/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
   name: qwc-solr
   labels:
     helm.sh/chart: qwc
@@ -603,7 +687,7 @@ spec:
   type: ClusterIP
   ports:
     - name: http
-      port: 9090
+      port: 8983
       protocol: TCP
       targetPort: http
   selector:
@@ -762,9 +846,6 @@ spec:
             - key: pg_service_conf
               path: pg_service.conf
             secretName: pg-service-conf-secret
-        - name: v-qwc-data
-          persistentVolumeClaim:
-            claimName: pvc-qwc-data
 ---
 # Source: qwc/charts/qwc/templates/deployment.yaml
 apiVersion: apps/v1
@@ -804,7 +885,7 @@ spec:
         - name: uwsgi
           securityContext:
             {}
-          image: "sourcepole/qwc-db-auth:v2022.03.20"
+          image: "sourcepole/qwc-db-auth:v2023.02.06"
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
@@ -934,9 +1015,6 @@ spec:
             - key: pg_service_conf
               path: pg_service.conf
             secretName: pg-service-conf-secret
-        - name: v-qwc-data
-          persistentVolumeClaim:
-            claimName: pvc-qwc-data
 ---
 # Source: qwc/charts/qwc/templates/deployment.yaml
 apiVersion: apps/v1
@@ -976,7 +1054,7 @@ spec:
         - name: uwsgi
           securityContext:
             {}
-          image: "sourcepole/qwc-data-service:v2022.03.16"
+          image: "sourcepole/qwc-data-service:v2023.01.11"
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
@@ -1130,7 +1208,7 @@ spec:
         - name: uwsgi
           securityContext:
             {}
-          image: "sourcepole/qwc-elevation-service:v2022.01.27"
+          image: "sourcepole/qwc-elevation-service:v2022.08.22"
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
@@ -1203,7 +1281,7 @@ spec:
         - name: uwsgi
           securityContext:
             {}
-          image: "sourcepole/qwc-feature-info-service:v2.0.10"
+          image: "sourcepole/qwc-feature-info-service:v2022.11.19"
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
@@ -1214,7 +1292,7 @@ spec:
                   name: "jwt-key-secret"
                   key: "JWT_SECRET_KEY"
             - name: "SERVICE_MOUNTPOINT"
-              value: "/api/v1/feature-info"
+              value: "/api/v1/featureinfo"
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             null
@@ -1278,7 +1356,7 @@ spec:
         - name: uwsgi
           securityContext:
             {}
-          image: "sourcepole/qwc-fulltext-search-service:v2022.01.27"
+          image: "sourcepole/qwc-fulltext-search-service:v2022.09.27"
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
@@ -1294,6 +1372,85 @@ spec:
           resources:
             null
           volumeMounts:
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              subPath: config
+
+          ports:
+            - name: http
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qwc-legend-se
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: qwc
+    app.kubernetes.io/component: legend-service
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: qwc
+      app.kubernetes.io/component: legend-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: qwc
+        app.kubernetes.io/component: legend-service
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "sourcepole/qwc-legend-service:v2022.12.12"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "False"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+            - name: "SERVICE_MOUNTPOINT"
+              value: "/api/v1/legend"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /legends
+              name: v-qwc-data
+              readOnly: true
+              subPath: legends
             - mountPath: /srv/pg_service.conf
               name: pg-service-conf-secret
               readOnly: true
@@ -1426,7 +1583,7 @@ spec:
         - name: uwsgi
           securityContext:
             {}
-          image: "sourcepole/qwc-mapinfo-service:v2022.01.27"
+          image: "sourcepole/qwc-mapinfo-service:v2022.08.22"
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
@@ -1501,7 +1658,7 @@ spec:
         - name: uwsgi
           securityContext:
             {}
-          image: "sourcepole/qwc-ogc-service:v2022.08.22"
+          image: "sourcepole/qwc-ogc-service:v2023.02.03"
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
@@ -1576,7 +1733,7 @@ spec:
         - name: uwsgi
           securityContext:
             {}
-          image: "sourcepole/qwc-permalink-service:v2022.01.27"
+          image: "sourcepole/qwc-permalink-service:v2022.10.06"
           imagePullPolicy: IfNotPresent
           env:
             - name: "JWT_COOKIE_CSRF_PROTECT"
@@ -1588,6 +1745,81 @@ spec:
                   key: "JWT_SECRET_KEY"
             - name: "SERVICE_MOUNTPOINT"
               value: "/api/v1/permalink"
+          terminationMessagePolicy: FallbackToLogsOnError
+          resources:
+            null
+          volumeMounts:
+            - mountPath: /srv/pg_service.conf
+              name: pg-service-conf-secret
+              readOnly: true
+              subPath: pg_service.conf
+            - mountPath: /srv/qwc_service/config
+              name: v-qwc-data
+              subPath: config
+
+          ports:
+            - name: http
+              containerPort: 9090
+              hostIP: 127.0.0.1
+
+      volumes:
+        - name: pg-service-conf-secret
+          secret:
+            items:
+            - key: pg_service_conf
+              path: pg_service.conf
+            secretName: pg-service-conf-secret
+---
+# Source: qwc/charts/qwc/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qwc-print-ser
+  labels:
+    helm.sh/chart: qwc
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: qwc
+    app.kubernetes.io/instance: qwc
+    app.kubernetes.io/component: print-service
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qwc
+      app.kubernetes.io/instance: qwc
+      app.kubernetes.io/component: print-service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qwc
+        app.kubernetes.io/instance: qwc
+        app.kubernetes.io/component: print-service
+    spec:
+      serviceAccountName: default
+      securityContext:
+        {}
+      affinity:
+        null
+      containers:
+        - name: uwsgi
+          securityContext:
+            {}
+          image: "sourcepole/qwc-print-service:v2022.10.06"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: "JWT_COOKIE_CSRF_PROTECT"
+              value: "False"
+            - name: "JWT_SECRET_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "jwt-key-secret"
+                  key: "JWT_SECRET_KEY"
+            - name: "SERVICE_MOUNTPOINT"
+              value: "/api/v1/print"
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             null
@@ -1648,7 +1880,7 @@ spec:
       affinity:
         null
       containers:
-        - name: uwsgi
+        - name: solr
           securityContext:
             {}
           image: "solr:8.11.1-slim"
@@ -1682,7 +1914,7 @@ spec:
 
           ports:
             - name: http
-              containerPort: 9090
+              containerPort: 8983
               hostIP: 127.0.0.1
 
       volumes:
@@ -1692,6 +1924,3 @@ spec:
             - key: pg_service_conf
               path: pg_service.conf
             secretName: pg-service-conf-secret
-        - name: v-qwc-data
-          persistentVolumeClaim:
-            claimName: pvc-qwc-data
