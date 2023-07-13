@@ -3,7 +3,7 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-qgis-qgis-serv
+  name: qwc-qgis-qgis-server
   labels:
     app.kubernetes.io/name: qgis
     app.kubernetes.io/instance: qwc
@@ -20,7 +20,7 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-admin-gui
+  name: qwc-qwc-admin-gui
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
@@ -37,7 +37,7 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-auth-serv
+  name: qwc-qwc-auth-service
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
@@ -54,7 +54,7 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-config-se
+  name: qwc-qwc-config-service
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
@@ -71,7 +71,7 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-data-serv
+  name: qwc-qwc-data-service
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
@@ -88,7 +88,7 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-document
+  name: qwc-qwc-document-service
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
@@ -105,7 +105,7 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-elevation
+  name: qwc-qwc-elevation-service
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
@@ -122,7 +122,7 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-feature-i
+  name: qwc-qwc-feature-info-service
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
@@ -139,7 +139,7 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-fulltext
+  name: qwc-qwc-fulltext-search-service
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
@@ -156,7 +156,7 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-legend-se
+  name: qwc-qwc-legend-service
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
@@ -173,7 +173,7 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-map-viewe
+  name: qwc-qwc-map-viewer
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
@@ -190,7 +190,7 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-mapinfo-s
+  name: qwc-qwc-mapinfo-service
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
@@ -207,7 +207,7 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-ogc-servi
+  name: qwc-qwc-ogc-service
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
@@ -224,7 +224,7 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-permalink
+  name: qwc-qwc-permalink-service
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
@@ -241,7 +241,7 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-print-ser
+  name: qwc-qwc-print-service
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
@@ -258,7 +258,7 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: qwc-solr
+  name: qwc-qwc-solr
   labels:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
@@ -283,7 +283,7 @@ data:
   # retrieve the secret data using lookup function and when not exists, return an empty dictionary / map as result
   # set $jwtSecret to existing secret data or generate a random one when not exists
   # generate 32 chars long random string, base64 encode it and then double-quote the result string.
-  JWT_SECRET_KEY: "TldwemN6VjBjRWc1YjA1aVdtVjRTSFZDYjBaT1ZVeHVVVzVvWTFkWlZHVT0="
+  JWT_SECRET_KEY: "VDBjMlpubFZTV2hrYUZGVE0ybEhkRmQyYm1GUmVrUm9ZMnMzUVRCRGQwYz0="
 ---
 # Source: qwc/templates/pg-conf-secret.yaml
 apiVersion: v1
@@ -307,7 +307,6 @@ metadata:
     app.kubernetes.io/name: qgis
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: qgis-server
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -324,7 +323,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qwc-admin-gui
+  name: qwc-qwc-admin-gui
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -332,7 +331,6 @@ metadata:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: admin-gui
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -349,7 +347,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qwc-auth-serv
+  name: qwc-qwc-auth-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -357,7 +355,6 @@ metadata:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: auth-service
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -374,7 +371,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qwc-config-se
+  name: qwc-qwc-config-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -382,7 +379,6 @@ metadata:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: config-service
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -399,7 +395,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qwc-data-serv
+  name: qwc-qwc-data-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -407,7 +403,6 @@ metadata:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: data-service
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -424,7 +419,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qwc-document
+  name: qwc-qwc-document-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -432,7 +427,6 @@ metadata:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: document-service
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -449,7 +443,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qwc-elevation
+  name: qwc-qwc-elevation-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -457,7 +451,6 @@ metadata:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: elevation-service
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -474,7 +467,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qwc-feature-i
+  name: qwc-qwc-feature-info-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -482,7 +475,6 @@ metadata:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: feature-info-service
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -499,7 +491,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qwc-fulltext
+  name: qwc-qwc-fulltext-search-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -507,7 +499,6 @@ metadata:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: fulltext-search-service
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -524,7 +515,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qwc-legend-se
+  name: qwc-qwc-legend-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -532,7 +523,6 @@ metadata:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: legend-service
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -549,7 +539,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qwc-map-viewe
+  name: qwc-qwc-map-viewer
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -557,7 +547,6 @@ metadata:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: map-viewer
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -574,7 +563,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qwc-mapinfo-s
+  name: qwc-qwc-mapinfo-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -582,7 +571,6 @@ metadata:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: mapinfo-service
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -599,7 +587,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qwc-ogc-servi
+  name: qwc-qwc-ogc-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -607,7 +595,6 @@ metadata:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: ogc-service
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -624,7 +611,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qwc-permalink
+  name: qwc-qwc-permalink-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -632,7 +619,6 @@ metadata:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: permalink-service
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -649,7 +635,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qwc-print-ser
+  name: qwc-qwc-print-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -657,7 +643,6 @@ metadata:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: print-service
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -674,7 +659,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qwc-solr
+  name: qwc-qwc-solr
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -682,7 +667,6 @@ metadata:
     app.kubernetes.io/name: qwc
     app.kubernetes.io/instance: qwc
     app.kubernetes.io/component: solr
-    prometheus: "true"
 spec:
   type: ClusterIP
   ports:
@@ -699,7 +683,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-qgis-qgis-serv
+  name: qwc-qgis-qgis-server
   labels:
     helm.sh/chart: qgis
     app.kubernetes.io/version: "1.0"
@@ -768,7 +752,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-admin-gui
+  name: qwc-qwc-admin-gui
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -806,11 +790,11 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: "DEFAULT_LOCALE"
-              value: "en"
+              value: en
             - name: "GROUP_REGISTRATION_ENABLED"
               value: "False"
             - name: "IDLE_TIMEOUT"
-              value: "600"
+              value: 600
             - name: "JWT_COOKIE_CSRF_PROTECT"
               value: "False"
             - name: "JWT_SECRET_KEY"
@@ -819,7 +803,7 @@ spec:
                   name: "jwt-key-secret"
                   key: "JWT_SECRET_KEY"
             - name: "MAIL_DEFAULT_SENDER"
-              value: "from@example.com"
+              value: from@example.com
             - name: "MAIL_SUPPRESS_SEND"
               value: "True"
           terminationMessagePolicy: FallbackToLogsOnError
@@ -851,7 +835,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-auth-serv
+  name: qwc-qwc-auth-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -896,11 +880,11 @@ spec:
                   name: "jwt-key-secret"
                   key: "JWT_SECRET_KEY"
             - name: "MAIL_DEFAULT_SENDER"
-              value: "from@example.com"
+              value: from@example.com
             - name: "MAIL_SUPPRESS_SEND"
               value: "True"
             - name: "SERVICE_MOUNTPOINT"
-              value: "/auth"
+              value: /auth
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             null
@@ -930,7 +914,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-config-se
+  name: qwc-qwc-config-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -968,7 +952,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: "INPUT_CONFIG_PATH"
-              value: "/srv/qwc_service/config-in"
+              value: /srv/qwc_service/config-in
             - name: "JWT_COOKIE_CSRF_PROTECT"
               value: "False"
             - name: "JWT_SECRET_KEY"
@@ -977,7 +961,7 @@ spec:
                   name: "jwt-key-secret"
                   key: "JWT_SECRET_KEY"
             - name: "OUTPUT_CONFIG_PATH"
-              value: "/srv/qwc_service/config-out"
+              value: /srv/qwc_service/config-out
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             null
@@ -1020,7 +1004,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-data-serv
+  name: qwc-qwc-data-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -1065,7 +1049,7 @@ spec:
                   name: "jwt-key-secret"
                   key: "JWT_SECRET_KEY"
             - name: "SERVICE_MOUNTPOINT"
-              value: "/api/v1/data"
+              value: /api/v1/data
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             null
@@ -1099,7 +1083,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-document
+  name: qwc-qwc-document-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -1144,7 +1128,7 @@ spec:
                   name: "jwt-key-secret"
                   key: "JWT_SECRET_KEY"
             - name: "SERVICE_MOUNTPOINT"
-              value: "/api/v1/document"
+              value: /api/v1/document
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             null
@@ -1174,7 +1158,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-elevation
+  name: qwc-qwc-elevation-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -1247,7 +1231,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-feature-i
+  name: qwc-qwc-feature-info-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -1292,7 +1276,7 @@ spec:
                   name: "jwt-key-secret"
                   key: "JWT_SECRET_KEY"
             - name: "SERVICE_MOUNTPOINT"
-              value: "/api/v1/featureinfo"
+              value: /api/v1/featureinfo
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             null
@@ -1322,7 +1306,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-fulltext
+  name: qwc-qwc-fulltext-search-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -1367,7 +1351,7 @@ spec:
                   name: "jwt-key-secret"
                   key: "JWT_SECRET_KEY"
             - name: "SERVICE_MOUNTPOINT"
-              value: "/api/v2/search"
+              value: /api/v2/search
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             null
@@ -1397,7 +1381,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-legend-se
+  name: qwc-qwc-legend-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -1442,7 +1426,7 @@ spec:
                   name: "jwt-key-secret"
                   key: "JWT_SECRET_KEY"
             - name: "SERVICE_MOUNTPOINT"
-              value: "/api/v1/legend"
+              value: /api/v1/legend
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             null
@@ -1476,7 +1460,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-map-viewe
+  name: qwc-qwc-map-viewer
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -1549,7 +1533,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-mapinfo-s
+  name: qwc-qwc-mapinfo-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -1594,7 +1578,7 @@ spec:
                   name: "jwt-key-secret"
                   key: "JWT_SECRET_KEY"
             - name: "SERVICE_MOUNTPOINT"
-              value: "/api/v1/mapinfo"
+              value: /api/v1/mapinfo
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             null
@@ -1624,7 +1608,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-ogc-servi
+  name: qwc-qwc-ogc-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -1669,7 +1653,7 @@ spec:
                   name: "jwt-key-secret"
                   key: "JWT_SECRET_KEY"
             - name: "SERVICE_MOUNTPOINT"
-              value: "/ows"
+              value: /ows
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             null
@@ -1699,7 +1683,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-permalink
+  name: qwc-qwc-permalink-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -1744,7 +1728,7 @@ spec:
                   name: "jwt-key-secret"
                   key: "JWT_SECRET_KEY"
             - name: "SERVICE_MOUNTPOINT"
-              value: "/api/v1/permalink"
+              value: /api/v1/permalink
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             null
@@ -1774,7 +1758,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-print-ser
+  name: qwc-qwc-print-service
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
@@ -1819,7 +1803,7 @@ spec:
                   name: "jwt-key-secret"
                   key: "JWT_SECRET_KEY"
             - name: "SERVICE_MOUNTPOINT"
-              value: "/api/v1/print"
+              value: /api/v1/print
           terminationMessagePolicy: FallbackToLogsOnError
           resources:
             null
@@ -1849,7 +1833,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qwc-solr
+  name: qwc-qwc-solr
   labels:
     helm.sh/chart: qwc
     app.kubernetes.io/version: "1.0"
