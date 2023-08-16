@@ -77,3 +77,19 @@ repos:
     hooks:
       - id: jsonschema-validator
         files: ^ci/config\.yaml$
+  - repo: https://github.com/camptocamp/helm-common
+    rev: 0.7.1
+    hooks:
+      - id: helm-template-gen
+        files: |-
+          (?x)(
+            ^templates/.*$
+            |^values\.yaml$
+            |^Chart\.yaml$
+            |^tests/values-emptydir\.yaml$
+          )
+        args:
+          - --values=tests/values-emptydir.yaml
+          - qwc
+          - .
+          - tests/expected.yaml

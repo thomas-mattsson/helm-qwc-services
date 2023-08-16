@@ -18,6 +18,10 @@ idstuff: &idstuff
   SERVICE_GID:
     value: 1012
 
+config:
+  jwt:
+    keySecret: example-jwt-key-secret
+
 initContainers: &initContainers
   config:
     command:
