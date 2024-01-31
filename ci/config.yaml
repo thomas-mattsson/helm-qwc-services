@@ -9,3 +9,6 @@ checks:
   black:
     ignore_patterns_re:
       - .*\.yaml
+  codespell:
+    ignore_re:
+      - \.github/workflows/pull-request-automation\.yaml
