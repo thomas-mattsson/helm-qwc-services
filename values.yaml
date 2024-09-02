@@ -111,7 +111,7 @@ qgis:
         servicePort: 80
         ports:
           - name: http
-            port: 8080
+            port: 80
             protocol: TCP
             targetPort: http
       volumes:
@@ -124,7 +124,7 @@ qgis:
             sha: ''
           ports:
             http:
-              containerPort: 80
+              containerPort: 8080
           volumeMounts:
             /data:
               name: v-qwc-data
