@@ -117,7 +117,7 @@ qgis:
         qgis:
           image:
             repository: sourcepole/qwc-qgis-server
-            tag: 3.38-plugins
+            tag: "3.38"
             sha: ''
           ports:
             http:
