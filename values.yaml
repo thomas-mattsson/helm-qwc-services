@@ -21,7 +21,9 @@ volumes: &common-volumes
   # v-qwc-data must be defined as NFS or emptyDir otherwise you
   # get "error converting YAML to JSON"...
   # see the examples
-  #v-qwc-data: {}
+  v-qwc-data:
+    persistentVolumeClaim:
+      claimName: v-qwc-data
 
 volumeMounts: &common-volume-mounts
   /srv/pg_service.conf:
