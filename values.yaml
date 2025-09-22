@@ -94,10 +94,10 @@ qgis:
 
   serviceAccount:
     # Specifies whether a service account should be created
-    create: false
+    create: true
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template
-    name: default
+    name: qwc
   securityContext:
     runAsNonRoot: true
     runAsUser: 33
@@ -157,10 +157,10 @@ qwc:
 
   serviceAccount:
     # Specifies whether a service account should be created
-    create: false
+    create: true
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template
-    name: default
+    name: qwc
   services:
     admin-gui:
       enabled: true
