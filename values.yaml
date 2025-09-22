@@ -37,7 +37,7 @@ volumeMounts: &common-volume-mounts
 ports: &common-ports
   http:
     containerPort: 9090
-    hostIP: 127.0.0.1
+    #hostIP: 127.0.0.1
 
 env: &common-env
   JWT_COOKIE_CSRF_PROTECT:
