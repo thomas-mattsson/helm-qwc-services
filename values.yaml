@@ -39,7 +39,7 @@ ports: &common-ports
     containerPort: 9090
     name: http
     protocol: TCP
-    hostIP: null
+    # hostIP: 127.0.0.1
 
 env: &common-env
   JWT_COOKIE_CSRF_PROTECT:
